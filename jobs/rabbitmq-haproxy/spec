@@ -1,0 +1,26 @@
+---
+name: rabbitmq-haproxy
+
+packages:
+- haproxy
+- rabbitmq-common
+
+properties:
+  rabbitmq-haproxy.do-not-configure-syslog:
+    default: false
+    description: "The haproxy_syslog.conf file will not be configured (can be used if you configure syslog-release)"
+
+templates:
+  rabbitmq-haproxy.init.erb:  bin/rabbitmq-haproxy.init
+  haproxy.config.erb:         haproxy.config
+  known-packages.bash:        bin/known-packages.bash
+  pre-start.bash.erb:         bin/pre-start
+  haproxy_syslog.conf:        config/haproxy_syslog.conf
+
+provides:
+  - name: rabbitmq-haproxy
+    type: rabbitmq-haproxy
+
+consumes:
+  - name: rabbitmq-server
+    type: rabbitmq-server

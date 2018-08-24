@@ -1,0 +1,104 @@
+# vim: set filetype=yaml :
+---
+name: rabbitmq-server
+packages:
+- erlang
+- rabbitmq-server
+- rabbitmq-common
+- rabbitmq-upgrade-preparation
+
+properties:
+  rabbitmq-server.ssl.cacert:
+    description: "RabbitMQ server CA certificate"
+  rabbitmq-server.ssl.cert:
+    description: "RabbitMQ server certificate"
+  rabbitmq-server.ssl.key:
+    description: "RabbitMQ server private key"
+  rabbitmq-server.ssl.versions:
+    description: "TLS protocol versions to support"
+    default: ['tlsv1.2','tlsv1.1']
+  rabbitmq-server.ssl.ciphers:
+    description: "TLS ciphers to use"
+  rabbitmq-server.ssl.verify:
+    description: "Peer verification method used by RabbitMQ server"
+    default: false
+  rabbitmq-server.ssl.verification_depth:
+    description: "Peer verification depth used by RabbitMQ server"
+    default: 5
+  rabbitmq-server.ssl.fail_if_no_peer_cert:
+    description: "Should RabbitMQ server reject connection if there is no peer cert"
+    default: false
+
+  rabbitmq-server.plugins:
+    description: "List of RabbitMQ plugins"
+  rabbitmq-server.ports:
+    description: "List of ports on which the RabbitMQ cluster accepts connections"
+
+  rabbitmq-server.administrators.broker.username:
+    description: "RabbitMQ admin username for broker"
+  rabbitmq-server.administrators.broker.password:
+    description: "RabbitMQ admin password for broker"
+  rabbitmq-server.administrators.management.username:
+    description: "RabbitMQ admin username for operator"
+  rabbitmq-server.administrators.management.password:
+    description: "RabbitMQ admin password for operator"
+
+  rabbitmq-server.config:
+    description: "RabbitMQ configuration (base64 encoded)"
+    default: "W10u" # base64 encoding of '[].'
+
+  rabbitmq-server.cookie:
+    description: "Erlang cookie used by RabbitMQ nodes and rabbitmqctl"
+
+  rabbitmq-server.fd_limit:
+    description: "The file descriptor limit for the RabbitMQ process"
+    default: 300000
+
+  rabbitmq-server.disk_alarm_threshold:
+    description: "The threshold in bytes of free disk space at which rabbitmq will raise an alarm"
+    default: "{mem_relative,0.4}"
+
+  rabbitmq-server.cluster_partition_handling:
+    description: "Cluster partition recover mode property. Valid values are: pause_minority, autoheal"
+    default: "pause_minority"
+
+  rabbitmq-server.force-unsafe-upgrade.disable-version-checking:
+    description: "This property is for support cases only. Leave as false unless you are prepared to get your cluster in an unrecoverable state, including complete data loss."
+    default: false
+
+  rabbitmq-server.load_definitions:
+    description: "Definitions to be loaded by RabbitMQ at startup"
+
+templates:
+  add-rabbitmqctl-to-path.bash:             bin/add-rabbitmqctl-to-path
+  cleanup-http-logs.bash:                   bin/cleanup-http-logs
+  cluster-check.bash:                       bin/cluster-check
+  delete_old_files.bash:                    lib/delete_old_files.bash
+  drain.bash:                               bin/drain
+  kill-with-fire.bash:                      bin/kill-with-fire
+  node-check.bash.erb:                      bin/node-check
+  plugins.sh.erb:                           bin/plugins.sh
+  post-deploy.bash:                         bin/post-deploy
+  pre-start.bash:                           bin/pre-start
+  rabbitmq-server.init.bash:                bin/rabbitmq-server.init
+  setup.bash:                               bin/setup.sh
+  cacert.pem.erb:                           etc/cacert.pem
+  cert.pem.erb:                             etc/cert.pem
+  config.erb:                               etc/config
+  definitions.json.erb:                     etc/definitions.json
+  key.pem.erb:                              etc/key.pem
+  rabbitmq.config.erb:                      etc/rabbitmq.config
+  users.erb:                                etc/users
+  prepare-for-upgrade.bash:                 lib/prepare-for-upgrade.bash
+  rabbitmq-config-vars.bash.erb:            lib/rabbitmq-config-vars.bash
+  setup-vars.bash.erb:                      lib/setup-vars.bash
+
+provides:
+  - name: rabbitmq-server
+    type: rabbitmq-server
+    properties:
+    - rabbitmq-server
+
+consumes:
+  - name: rabbitmq-server
+    type: rabbitmq-server
