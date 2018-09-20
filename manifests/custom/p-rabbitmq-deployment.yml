@@ -46,9 +46,9 @@ instance_groups:
     - gateway
     name: rabbitmq-service
     static_ips:
-    - 10.10.0.101
-    - 10.10.0.102
-    - 10.10.0.103
+    - 10.10.0.11
+    - 10.10.0.12
+    - 10.10.0.13
   persistent_disk: 30720
   properties:
     loggregator:
@@ -320,7 +320,7 @@ instance_groups:
     - gateway
     name: rabbitmq-service
     static_ips:
-    - 10.10.0.104
+    - 10.10.0.14
   - name: vip
     static_ips:
     - "((rabbitmq_haproxy_public_ip))" #192.168.40.31
@@ -490,7 +490,7 @@ instance_groups:
     - gateway
     name: rabbitmq-service
     static_ips:
-    - 10.10.0.106
+    - 10.10.0.16
   properties:
     loggregator:
       tls:
@@ -583,7 +583,7 @@ instance_groups:
       deployment: p-rabbitmq
     rabbitmq-broker:
       cc_endpoint: https://api.((system_domain))
-      ip: 10.10.0.106
+      ip: 10.10.0.16
       logging:
         level: info
         print_stack_traces: true
@@ -593,7 +593,7 @@ instance_groups:
           username: broker
         dns_host:
         hosts:
-        - 10.10.0.104
+        - 10.10.0.14
         management_domain: wise-rabbitmq.((system_domain))
         operator_set_policy:
           enabled: false
@@ -625,7 +625,7 @@ instance_groups:
       route: wise-rabbitmq-broker
       service:
         password: "((service_password))" #_dIMW5VbZaIlJWxScxc0xqfnIpEPOCqw
-        url: 10.10.0.106
+        url: 10.10.0.16
         username: admin
     route_registrar:
       routes:
