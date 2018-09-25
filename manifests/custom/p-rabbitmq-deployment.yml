@@ -670,7 +670,7 @@ instance_groups:
       password: "((service_password))" #_dIMW5VbZaIlJWxScxc0xqfnIpEPOCqw
       username: admin
     cf:
-      admin_password: "((uaa_clients_cf_bosh_secret))" #a87ivh5ylkbk05h4keqz
+      admin_password: "((uaa_users_cf_bosh_password))" #a87ivh5ylkbk05h4keqz
       admin_username: bosh
       api_url: https://api.((system_domain))
       skip_ssl_validation: true
@@ -700,7 +700,7 @@ instance_groups:
     broker:
       name: p-rabbitmq
     cf:
-      admin_password: "((uaa_clients_cf_bosh_secret))" #a87ivh5ylkbk05h4keqz
+      admin_password: "((uaa_users_cf_bosh_password))" #a87ivh5ylkbk05h4keqz
       admin_username: bosh
       api_url: https://api.((system_domain))
       skip_ssl_validation: true
@@ -733,7 +733,7 @@ instance_groups:
     broker:
       name: p-rabbitmq
     cf:
-      admin_password: "((uaa_clients_cf_admin_secret))" #220enpcwweu2lgi8byep
+      admin_password: "((uaa_users_cf_admin_password))" #220enpcwweu2lgi8byep
       admin_username: admin
       api_url: https://api.((system_domain))
     smoke_tests:
@@ -763,7 +763,7 @@ instance_groups:
     broker:
       name: p.rabbitmq
     cf:
-      admin_password: "((uaa_clients_cf_admin_secret))" #220enpcwweu2lgi8byep
+      admin_password: "((uaa_users_cf_admin_password))" #220enpcwweu2lgi8byep
       admin_username: admin
       api_url: https://api.((system_domain))
       org: on-demand-smoke-test-org
@@ -1031,7 +1031,7 @@ instance_groups:
       authentication:
         url: https://uaa.((system_domain))
         user_credentials:
-          password: "((uaa_clients_cf_bosh_secret))" #a87ivh5ylkbk05h4keqz
+          password: "((uaa_users_cf_bosh_password))" #a87ivh5ylkbk05h4keqz
           skip_ssl_validation: true
           username: bosh
       url: https://api.((system_domain))
@@ -1289,7 +1289,7 @@ instance_groups:
     properties:
       broker_name: wise-rabbitmq-odb
       cf:
-        admin_password: "((uaa_clients_cf_bosh_secret))" #a87ivh5ylkbk05h4keqz
+        admin_password: "((uaa_users_cf_bosh_password))" #a87ivh5ylkbk05h4keqz
         admin_username: bosh
         api_url: https://api.((system_domain))
         skip_ssl_validation: true
@@ -1320,7 +1320,7 @@ instance_groups:
     properties:
       broker_name: wise-rabbitmq-odb
       cf:
-        admin_password: "((uaa_clients_cf_bosh_secret))" #a87ivh5ylkbk05h4keqz
+        admin_password: "((uaa_users_cf_bosh_password))" #a87ivh5ylkbk05h4keqz
         admin_username: bosh
         api_url: https://api.((system_domain))
         skip_ssl_validation: true
